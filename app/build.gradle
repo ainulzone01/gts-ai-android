@@ -1,0 +1,5 @@
+plugins { id 'com.android.application' }
+
+android { namespace 'com.gtsai.app'; compileSdk 35
+    defaultConfig { applicationId 'com.gtsai.app'; minSdk 23; targetSdk 35; versionCode 4; versionName '4.0' }
+}
