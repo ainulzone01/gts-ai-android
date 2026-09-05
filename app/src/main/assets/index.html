@@ -2,17 +2,192 @@
 <html lang="id">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GTS AI — Global Trade System</title>
+<title>GTS AI V5 — Global Trade System</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#090909;--panel:#111;--panel2:#171717;--gold:#d9aa45;--gold2:#f5d27a;--text:#f7f2e6;--muted:#a9a29a;--line:#2b2418;--danger:#ef7777;--ok:#71d69b;--warn:#e8b75d}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#1c170e 0,#090909 42%);color:var(--text);font-family:Inter,system-ui,Segoe UI,sans-serif;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1180px;margin:auto;padding:18px 18px 100px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.btc{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--gold2);color:var(--gold2);font-weight:900;font-size:25px;box-shadow:0 0 22px #c9962b55}.brand b{font-size:20px;letter-spacing:.7px}.brand small{display:block;color:var(--muted)}.badge{padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:#15120d;color:var(--gold2);font-size:12px}.screen{display:none}.screen.active{display:block}.hero{background:linear-gradient(135deg,#1d160a,#0f0f0f 65%);border:1px solid #5e461d;border-radius:24px;padding:22px;box-shadow:0 18px 50px #0008}.hero h1{margin:0 0 8px;font-size:28px}.hero p{color:var(--muted);margin:0}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}.card{background:linear-gradient(145deg,#151515,#0f0f0f);border:1px solid var(--line);border-radius:18px;padding:16px}.label{color:var(--muted);font-size:12px}.value{font-size:22px;font-weight:800;margin-top:7px;color:var(--gold2)}.section{margin-top:18px}.section h2{font-size:18px;margin:0 0 10px}.chart{height:230px;padding:10px}.chart svg{width:100%;height:100%;overflow:visible}.chart .gridline{stroke:#2b2418;stroke-width:1}.chart .line{fill:none;stroke:var(--gold2);stroke-width:3}.chart .dot{fill:var(--gold2)}.chart text{fill:#8f877c;font-size:11px}.two{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}.packages{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.package{position:relative;overflow:hidden}.package .shine{position:absolute;inset:-80px auto auto -60px;width:180px;height:180px;background:#f5d27a11;border-radius:50%}.package h3{margin:0 0 5px;color:var(--gold2)}.roi{font-size:27px;font-weight:900;margin:8px 0}.meta{color:var(--muted);font-size:13px;line-height:1.7}.btn{border:0;border-radius:12px;padding:11px 15px;background:linear-gradient(135deg,#c8922e,#f5d27a);color:#17120a;font-weight:800}.btn.secondary{background:#1c1a17;color:var(--gold2);border:1px solid #49381b}.btn.danger{background:#3a1717;color:#ffadad}.btn.ok{background:#173526;color:#9be4ba;border:1px solid #2f6949}.btn.warn{background:#342710;color:#f1cf82;border:1px solid #654b1d}.btn:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.form{display:grid;gap:10px}.form input,.form select,.form textarea{width:100%;background:#0d0d0d;color:var(--text);border:1px solid #393020;border-radius:12px;padding:12px}.form textarea{min-height:80px;resize:vertical}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}.table th,.table td{padding:10px;border-bottom:1px solid #29251f;text-align:left;vertical-align:top}.muted{color:var(--muted)}.notice{border:1px solid #5e461d;background:#21190c;color:#e8d29d;border-radius:14px;padding:12px;font-size:12px;line-height:1.6}.status{margin:10px 0;padding:10px;border-radius:12px;background:#171717;color:var(--muted);font-size:13px}.status.ok{color:var(--ok)}.status.err{color:#ff9b9b}.status.warn{color:var(--warn)}.nav{position:fixed;z-index:20;bottom:12px;left:50%;transform:translateX(-50%);width:min(720px,calc(100% - 24px));background:#0f0f0fee;backdrop-filter:blur(16px);border:1px solid #4c3b20;border-radius:22px;padding:7px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;box-shadow:0 12px 45px #000b}.nav button{background:transparent;border:0;color:#888077;padding:9px 4px;border-radius:16px;font-size:11px}.nav button.active{background:#21190d;color:var(--gold2)}.nav strong{display:block;font-size:17px;margin-bottom:3px}.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:50;padding:16px}.modal.open{display:grid}.modalbox{width:min(620px,100%);max-height:90vh;overflow:auto;background:#121212;border:1px solid #58431e;border-radius:20px;padding:20px}.modalbox h2{margin-top:0}.tabs{display:flex;gap:6px;margin-bottom:15px}.tabs button{flex:1}.pill{display:inline-block;padding:5px 9px;border-radius:999px;font-size:11px;border:1px solid #3b3325}.pill.pending{color:#f2ce80;background:#30250f}.pill.approved{color:#9ce1b8;background:#12311f}.pill.rejected{color:#ff9f9f;background:#351717}.proof{max-width:110px;max-height:80px;border-radius:8px;border:1px solid #4c3b20;object-fit:cover}.login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{width:min(460px,100%);background:#111;border:1px solid #5a431e;border-radius:25px;padding:24px;box-shadow:0 20px 70px #000}.hidden{display:none!important}.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.quick .btn{width:100%}.small{font-size:12px}.divider{height:1px;background:#2b2418;margin:16px 0}
 @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.two,.packages{grid-template-columns:1fr}.hero h1{font-size:23px}}
 @media(max-width:430px){.grid{grid-template-columns:1fr 1fr}.card{padding:12px}.value{font-size:18px}.quick{grid-template-columns:1fr}}
-</style></head>
+
+/* GTS AI V5 — premium APK-style interface */
+:root{--gold3:#fff0b0;--glass:rgba(22,20,17,.78);--shadow:0 24px 70px rgba(0,0,0,.42)}
+body{background:radial-gradient(circle at 15% -10%,rgba(245,210,122,.16),transparent 32%),radial-gradient(circle at 90% 10%,rgba(201,146,46,.12),transparent 28%),linear-gradient(180deg,#090909 0%,#0b0b0b 100%);letter-spacing:.01em}
+.app{max-width:1240px;padding:18px 18px 110px}
+.top{position:sticky;top:0;z-index:15;padding:10px 0 16px;background:linear-gradient(180deg,#090909 72%,transparent);backdrop-filter:blur(8px)}
+.brand{gap:11px}.btc{position:relative;background:radial-gradient(circle at 35% 25%,#fff0b0 0,#f5d27a 18%,#b87918 62%,#211706 100%);color:#1a1307;border-color:#ffe49a;box-shadow:0 0 0 1px #5e461d,0 0 30px rgba(245,210,122,.2),inset 0 2px 6px #fff8}
+.brand b{font-weight:900}.badge{box-shadow:inset 0 1px #ffffff0b,0 8px 24px #0008}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(38,28,12,.96),rgba(16,16,16,.96) 62%);box-shadow:var(--shadow),inset 0 1px #ffffff0b}
+.hero:after{content:"";position:absolute;width:260px;height:260px;right:-110px;top:-130px;border-radius:50%;background:radial-gradient(circle,#f5d27a1c,transparent 65%);pointer-events:none}
+.card{box-shadow:0 14px 38px #0005,inset 0 1px #ffffff06;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-1px);border-color:#57431f;box-shadow:0 18px 45px #0007,inset 0 1px #ffffff08}
+.value{background:linear-gradient(90deg,var(--gold2),var(--gold3),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{box-shadow:0 8px 22px rgba(201,146,46,.16),inset 0 1px #fff8;transition:transform .15s ease,filter .15s ease}.btn:hover{filter:brightness(1.07);transform:translateY(-1px)}.btn.secondary{box-shadow:inset 0 1px #fff08}
+.form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:#a97b2a;box-shadow:0 0 0 3px #d9aa4520}
+.nav{bottom:14px;background:rgba(12,12,12,.88);box-shadow:0 18px 55px #000c,0 0 0 1px #ffffff05;backdrop-filter:blur(22px) saturate(1.2)}
+.nav button.active{box-shadow:inset 0 1px #fff08,0 8px 24px #0005}.nav strong{font-size:18px}
+.login{background:radial-gradient(circle at 50% 15%,rgba(245,210,122,.1),transparent 34%)}
+.loginbox{background:linear-gradient(145deg,rgba(21,21,21,.96),rgba(12,12,12,.96));box-shadow:0 30px 90px #000c,inset 0 1px #ffffff09}
+.status{border:1px solid #2b2418}.status.ok{border-color:#28583d;background:#102016}.status.err{border-color:#613333;background:#211010}
+@media(max-width:600px){.hero{border-radius:20px;padding:18px}.grid{gap:9px}.card{border-radius:16px}.app{padding-left:12px;padding-right:12px}.top{padding-top:7px}.brand b{font-size:18px}.btc{width:43px;height:43px;font-size:22px}.nav{width:calc(100% - 16px);bottom:8px}.nav button{padding:8px 2px}}
+
+.gts-about{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(16,22,34,.96),rgba(10,13,22,.96));border:1px solid rgba(53,211,255,.18)}
+.gts-about:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 49%,rgba(53,211,255,.035) 50%,transparent 51%),linear-gradient(0deg,transparent 49%,rgba(178,91,255,.035) 50%,transparent 51%);background-size:32px 32px;pointer-events:none}
+.gts-about>*{position:relative}
+.about-head{display:flex;align-items:center;gap:14px;margin-bottom:12px}.about-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-weight:900;font-size:18px;background:linear-gradient(135deg,#d7b65a,#35d3ff 58%,#b25bff);color:#071019;box-shadow:0 0 24px rgba(53,211,255,.16)}
+.gts-about h2{margin:0}.gts-about h3{margin:18px 0 8px;color:#e8f7ff;font-size:15px}.gts-about p,.gts-about li{color:#b8c5d3;line-height:1.65;font-size:13px}.gts-about ul{padding-left:20px;margin:8px 0}.gts-about li{margin:8px 0}.gts-about strong{color:#edf8ff}.about-footer{padding-top:10px;border-top:1px solid rgba(255,255,255,.08);margin-top:16px}
+
+.gts-history-card,.gts-bonus-lock,.gts-cs-card{border:1px solid rgba(73,173,255,.18);background:linear-gradient(135deg,rgba(13,21,35,.92),rgba(17,14,28,.92));box-shadow:0 10px 35px rgba(0,0,0,.2)}
+.gts-history-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.gts-history-row:last-child{border-bottom:0}.gts-history-meta{font-size:12px;color:#8fa2ba}.gts-history-amount{font-weight:800;text-align:right}.gts-history-empty{padding:12px 0}.bonus-lock-info{padding:13px;border-radius:14px;background:rgba(255,196,75,.06);border:1px solid rgba(255,196,75,.15);margin:10px 0 12px}.gts-cs-card a{text-decoration:none;display:inline-flex;width:auto}
+@media(max-width:620px){.gts-history-row{grid-template-columns:1fr}.gts-history-amount{text-align:left}}
+</style>
+<style id="gts-v5-premium-css">
+:root{--g:#d7ad4b;--g2:#f5d77b}
+html,body{background:#03050a!important}
+body{background:radial-gradient(circle at 15% 10%,rgba(215,173,75,.13),transparent 28%),radial-gradient(circle at 85% 15%,rgba(55,105,255,.10),transparent 30%),linear-gradient(135deg,#020307,#080b12 50%,#03050a)!important}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.22;background-image:linear-gradient(rgba(215,173,75,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(215,173,75,.06) 1px,transparent 1px);background-size:42px 42px}
+.card,.panel,.modal{background:linear-gradient(145deg,rgba(18,21,30,.88),rgba(7,9,14,.80))!important;border:1px solid rgba(215,173,75,.20)!important;box-shadow:0 18px 55px rgba(0,0,0,.30),inset 0 1px rgba(255,255,255,.035);backdrop-filter:blur(18px)}
+button,.btn{transition:.22s ease}
+button:hover,.btn:hover{transform:translateY(-1px);filter:brightness(1.08);box-shadow:0 10px 28px rgba(215,173,75,.14)}
+input,select,textarea{background:rgba(5,8,14,.76)!important;border-color:rgba(215,173,75,.20)!important}
+input:focus,select:focus,textarea:focus{outline:none!important;border-color:rgba(245,215,123,.65)!important;box-shadow:0 0 0 3px rgba(215,173,75,.08)!important}
+.gts-premium-hero{position:relative;overflow:hidden;margin:14px;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 28%,rgba(215,173,75,.16),transparent 24%),linear-gradient(135deg,rgba(15,18,27,.94),rgba(4,7,12,.86));border:1px solid rgba(215,173,75,.20)}
+.gts-premium-hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:48%;opacity:.42;background:linear-gradient(140deg,transparent 0 18%,rgba(215,173,75,.28) 19%,transparent 20% 35%,rgba(215,173,75,.18) 36%,transparent 37% 52%,rgba(245,215,123,.30) 53%,transparent 54%);clip-path:polygon(0 88%,10% 70%,20% 78%,30% 48%,40% 58%,50% 35%,60% 45%,70% 20%,80% 30%,90% 8%,100% 18%,100% 100%,0 100%)}
+.gts-premium-mark{width:62px;height:62px;border-radius:18px;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 35% 30%,#fff1a7,#d7ad4b 42%,#7c5714);color:#171006;font-size:30px;font-weight:900;box-shadow:0 0 0 1px rgba(255,241,167,.42),0 10px 32px rgba(215,173,75,.20)}
+.gts-premium-mark:after{content:"↗";position:absolute;right:4px;bottom:0;font-size:26px;color:#fff7d1;text-shadow:0 2px 6px #503500}
+.gts-tech-badge{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;border:1px solid rgba(215,173,75,.24);background:rgba(215,173,75,.06);color:#f5d77b;font-size:11px;font-weight:800;letter-spacing:.08em}
+.gts-tech-badge:before{content:"";width:7px;height:7px;border-radius:50%;background:#7dffbf;box-shadow:0 0 10px #7dffbf}
+.gts-feature-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(245,215,123,.16),rgba(215,173,75,.035));border:1px solid rgba(215,173,75,.20);font-size:20px}
+@media(max-width:640px){.gts-premium-mark{width:54px;height:54px;font-size:26px}}
+</style>
+
+<style id="gts-v6-tech-css">
+:root{
+  --g:#d7ad4b; --g2:#f5d77b;
+  --tech-bg:#070b12; --tech-panel:#0d1420;
+  --tech-blue:#38bdf8; --tech-purple:#8b5cf6;
+  --up:#22c55e; --down:#ef4444; --cyan:#22d3ee;
+}
+body{
+  background:
+    radial-gradient(circle at 12% 8%, rgba(56,189,248,.10), transparent 28%),
+    radial-gradient(circle at 88% 16%, rgba(139,92,246,.09), transparent 25%),
+    linear-gradient(145deg,#05070b 0%,#09111c 48%,#070b12 100%);
+}
+body:before{
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.18;
+  background-image:
+    linear-gradient(rgba(56,189,248,.10) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(139,92,246,.08) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+.gts-premium-hero{
+  background:
+    radial-gradient(circle at 15% 20%,rgba(56,189,248,.14),transparent 25%),
+    radial-gradient(circle at 85% 35%,rgba(139,92,246,.14),transparent 28%),
+    linear-gradient(135deg,rgba(9,15,25,.97),rgba(12,12,18,.96));
+  border-color:rgba(56,189,248,.20)!important;
+}
+.gts-premium-mark{
+  background:linear-gradient(145deg,#f7df91 0%,#d7ad4b 45%,#8b5cf6 100%)!important;
+  box-shadow:0 0 0 1px rgba(245,215,123,.32),0 10px 32px rgba(56,189,248,.12)!important;
+}
+.gts-premium-mark:after{color:#dff8ff!important;text-shadow:0 2px 8px #075985!important}
+.gts-tech-badge{
+  border-color:rgba(56,189,248,.30)!important;
+  background:rgba(56,189,248,.07)!important;
+  color:#9ee7ff!important;
+}
+.gts-tech-badge:before{
+  background:#22d3ee!important; box-shadow:0 0 12px #22d3ee!important;
+}
+.gts-feature-icon{
+  background:linear-gradient(145deg,rgba(56,189,248,.14),rgba(139,92,246,.10),rgba(215,173,75,.06))!important;
+  border-color:rgba(56,189,248,.22)!important;
+}
+.card{
+  background:linear-gradient(145deg,rgba(13,20,32,.92),rgba(8,12,19,.94))!important;
+  border-color:rgba(56,189,248,.12)!important;
+}
+.hero{
+  background:linear-gradient(135deg,rgba(10,22,32,.96),rgba(17,14,26,.96) 70%)!important;
+}
+.value{
+  background:linear-gradient(90deg,#f5d77b,#67e8f9,#a78bfa,#f5d77b)!important;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.btn{
+  background:linear-gradient(135deg,#d7ad4b,#8b5cf6)!important;
+  box-shadow:0 8px 24px rgba(139,92,246,.16),inset 0 1px #fff8!important;
+}
+.btn.secondary{
+  background:rgba(56,189,248,.07)!important;
+  border-color:rgba(56,189,248,.20)!important;
+  box-shadow:inset 0 1px #fff08!important;
+}
+.nav{
+  background:rgba(6,11,18,.90)!important;
+  box-shadow:0 18px 55px #000c,0 0 0 1px rgba(56,189,248,.08)!important;
+}
+.nav button.active{
+  background:linear-gradient(135deg,rgba(56,189,248,.18),rgba(139,92,246,.18))!important;
+  border-color:rgba(56,189,248,.25)!important;
+}
+.login{
+  background:
+    radial-gradient(circle at 20% 20%,rgba(56,189,248,.10),transparent 28%),
+    radial-gradient(circle at 80% 15%,rgba(139,92,246,.10),transparent 26%);
+}
+.loginbox{
+  background:linear-gradient(145deg,rgba(11,18,29,.97),rgba(10,10,16,.97))!important;
+  border-color:rgba(56,189,248,.16)!important;
+}
+.gts-candle-legend{
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:10px;color:#9da7b7;
+}
+.gts-candle-chip{
+  display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);
+}
+.gts-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.gts-dot.up{background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.45)}
+.gts-dot.down{background:#ef4444;box-shadow:0 0 8px rgba(239,68,68,.45)}
+.gts-dot.gold{background:#d7ad4b;box-shadow:0 0 8px rgba(215,173,75,.45)}
+</style>
+
+</head>
 <body>
+<div id="gtsPremiumHero" class="gts-premium-hero">
+  <div style="display:flex;gap:14px;align-items:center;position:relative;z-index:2">
+    <div class="gts-premium-mark">₿</div>
+    <div>
+      <div class="gts-tech-badge">GTS AI · V5 PREMIUM</div>
+      <div style="font-size:22px;font-weight:900;margin-top:7px;background:linear-gradient(90deg,#fff8d2,#d7ad4b);-webkit-background-clip:text;background-clip:text;color:transparent">Global Trade System</div>
+      <div style="font-size:12px;color:#aeb4c0;margin-top:3px">Digital dashboard • analytics • secure account</div>
+    </div>
+  </div>
+</div>
+
+
+<div id="gtsDailyPremiumChart" class="card" style="margin:14px;padding:18px;border-radius:22px">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <div>
+      <div style="font-size:14px;font-weight:900">Perkembangan Harian</div>
+      <div style="font-size:11px;color:#9da3af">Candlestick • tren visual 14 hari</div>
+    </div>
+    <div class="gts-feature-icon">◫</div>
+  </div>
+  <div class="gts-candle-legend" style="margin-bottom:8px">
+    <span class="gts-candle-chip"><span class="gts-dot up"></span>Naik</span>
+    <span class="gts-candle-chip"><span class="gts-dot down"></span>Turun</span>
+    <span class="gts-candle-chip"><span class="gts-dot gold"></span>Open/Close</span>
+  </div>
+  <canvas id="gtsPremiumChart" height="220" style="width:100%;max-height:260px"></canvas>
+</div>
+
 <div id="loginView" class="login"><div class="loginbox">
-<div class="brand"><div class="btc">₿</div><div><b>GTS AI</b><small>Global Trade System</small></div></div>
+<div class="brand"><div class="btc">₿</div><div><b>GTS AI</b><small>Global Trade System · V8</small></div></div>
 
 <form id="loginForm" class="form"><input id="email" type="email" placeholder="Email" required><input id="password" type="password" placeholder="Password" required><button class="btn">Masuk</button></form>
 <div class="actions"><button class="btn secondary" id="showSignup">Buat akun</button><button class="btn secondary" id="showConfig">Konfigurasi Supabase</button></div>
@@ -21,7 +196,7 @@
 </div></div>
 
 <div id="appView" class="app hidden">
-<header class="top"><div class="brand"><div class="btc">₿</div><div><b>GTS AI</b><small>Global Trade System</small></div></div><div><span id="roleBadge" class="badge">USER</span></div></header>
+<header class="top"><div class="brand"><div class="btc">₿</div><div><b>GTS AI</b><small>Global Trade System · V8</small></div></div><div><span class="badge">V8 · ONLINE</span><span id="roleBadge" class="badge">USER</span></div></header>
 <main>
 <section id="dashboard" class="screen active"><div class="hero"><h1>Dashboard</h1><p id="welcome">Selamat datang.</p></div>
 <div class="grid"><div class="card"><div class="label">Saldo</div><div id="balance" class="value">Rp 0</div></div><div class="card"><div class="label">Investasi Aktif</div><div id="activeInv" class="value">0</div></div><div class="card"><div class="label">Profit Hari Ini</div><div id="dailyProfit" class="value">Rp 0</div></div><div class="card"><div class="label">ROI Tercatat</div><div id="roi" class="value">0%</div></div></div>
@@ -33,7 +208,30 @@
 
 <section id="bonus" class="screen"><div class="hero"><h1>Bonus Referral</h1><p>Bonus referral dicatat sesuai konfigurasi sistem.</p></div><div class="grid"><div class="card"><div class="label">Level 1</div><div class="value">8%</div></div><div class="card"><div class="label">Level 2</div><div class="value">2%</div></div><div class="card"><div class="label">Total Bonus</div><div id="bonusTotal" class="value">Rp 0</div></div><div class="card"><div class="label">Kode Referral</div><div id="refCode" class="value" style="font-size:16px">-</div></div></div><div class="card section"><h2>Link Referral</h2><input id="refLink" readonly style="width:100%;background:#0d0d0d;color:#fff;border:1px solid #393020;border-radius:12px;padding:12px"><div class="actions"><button class="btn" id="copyRef">Salin Link</button></div></div></section>
 
-<section id="profile" class="screen"><div class="hero"><h1>Saya</h1><p>Profil dan pengaturan akun.</p></div><div class="card section"><div id="profileInfo"></div><div class="actions"><button class="btn" onclick="openFinance('deposit')">Deposit</button><button class="btn secondary" onclick="openFinance('withdraw')">Penarikan</button><button class="btn danger" id="logout">Keluar</button></div></div>
+<section id="profile" class="screen"><div class="hero"><h1>Saya</h1><p>Profil dan pengaturan akun.</p></div><div class="card section"><div id="profileInfo"></div><div class="actions"><button class="btn" onclick="openFinance('deposit')">Deposit</button><button class="btn secondary" onclick="openFinance('withdraw')">Penarikan</button><button class="btn secondary" onclick="openHistory()">Riwayat Transaksi</button><button class="btn danger" id="logout">Keluar</button></div></div>
+<div class="card section gts-about">
+  <div class="about-head"><div class="about-icon">₿↗</div><div><h2>Tentang GTS AI</h2><p class="muted small">PT Global Trade System AI (GTS AI)</p></div></div>
+  <p><strong>PT Global Trade System AI (GTS AI)</strong> adalah perusahaan penyedia solusi perdagangan global terdepan yang memadukan teknologi kecerdasan buatan (<em>Artificial Intelligence</em>) mutakhir dengan keahlian mendalam dari para profesional berpengalaman di industri <em>trading</em>. GTS AI hadir untuk mengoptimalkan, mempercepat, dan mengamankan seluruh rantai transaksi perdagangan internasional di pasar finansial maupun komoditas.</p>
+  <h3>Visi &amp; Misi</h3>
+  <ul><li><strong>Visi:</strong> Menjadi pelopor platform <em>trading</em> berbasis AI tepercaya di tingkat global yang menghubungkan efisiensi teknologi dengan strategi perdagangan yang teruji.</li><li><strong>Misi:</strong> Memaksimalkan potensi profitibilitas dan efisiensi klien melalui analisis data presisi tinggi, manajemen risiko terukur, serta eksekusi pasar yang cepat dan transparan.</li></ul>
+  <h3>Keunggulan Utama</h3>
+  <ul><li><strong>Teknologi AI Lanjutan:</strong> Memanfaatkan algoritma <em>predictive analytics</em> dan <em>machine learning</em> untuk menganalisis tren pasar global secara <em>real-time</em>, mengidentifikasi peluang, dan mengautomasi strategi secara presisi.</li><li><strong>Tim Profesional Berpengalaman:</strong> Didukung oleh jajaran analis pasar, <em>trader</em> senior, dan ahli teknologi yang berpengalaman puluhan tahun di pasar keuangan global untuk memastikan setiap strategi didasari oleh logika bisnis yang matang.</li><li><strong>Manajemen Risiko Terukur:</strong> Menggabungkan mitigasi risiko otomatis berbasis sistem dengan pengawasan manusia (<em>human-in-the-loop</em>) untuk melindungi aset dan stabilitas portofolio klien.</li><li><strong>Jangkauan Pasar Global:</strong> Memberikan akses tak terbatas ke berbagai instrumen perdagangan internasional dengan transparansi dan standar keamanan tingkat tinggi.</li></ul>
+  <p class="about-footer">Dengan menyatukan kekuatan inovasi AI dan pengalaman eksekusi para ahli, GTS AI berkomitmen menjadi mitra strategis utama bagi individu maupun institusi dalam menavigasi dinamika pasar global yang kompleks.</p>
+</div>
+<div class="card section gts-history-card">
+  <div class="about-head"><div class="about-icon">↕</div><div><h2>Riwayat Transaksi</h2><p class="muted small">Daftar lengkap deposit dan penarikan akun Anda.</p></div></div>
+  <div id="fullTransactionHistory" class="muted">Memuat riwayat...</div>
+</div>
+<div class="card section gts-bonus-lock">
+  <div class="about-head"><div class="about-icon">🔒</div><div><h2>Ketentuan Bonus Referral</h2><p class="muted small">Bonus referral dikunci selama masa kontrak investasi.</p></div></div>
+  <div id="bonusLockInfo" class="bonus-lock-info">Memeriksa status kontrak...</div>
+  <button id="bonusWithdrawBtn" class="btn secondary" disabled>Bonus Terkunci</button>
+  <p class="muted small" style="margin-top:10px">Untuk versi demo/sandbox ini, bonus hanya ditampilkan sebagai saldo referral dan tidak dapat ditarik sebelum masa kontrak berakhir.</p>
+</div>
+<div class="card section gts-cs-card">
+  <div class="about-head"><div class="about-icon">✉</div><div><h2>Customer Service</h2><p class="muted small">Hubungi tim Customer Service GTS AI</p></div></div>
+  <a class="btn" href="mailto:systemglobaltrade@gmail.com">systemglobaltrade@gmail.com</a>
+</div>
 <div id="adminPanel" class="section hidden"><div class="hero"><h1>Admin Control Center</h1><p>Approval transaksi dan kontrol akun dari perangkat lain.</p></div><div class="grid"><div class="card"><div class="label">Total User</div><div id="adminUsers" class="value">0</div></div><div class="card"><div class="label">Investasi</div><div id="adminInv" class="value">0</div></div><div class="card"><div class="label">Pending Deposit</div><div id="adminPendingDep" class="value">0</div></div><div class="card"><div class="label">Pending Penarikan</div><div id="adminPendingWd" class="value">0</div></div></div>
 <div class="card section"><h2>Approval Deposit & Penarikan</h2><div id="adminTransactions" class="muted">Memuat...</div></div>
 <div class="card section"><h2>Kelola User</h2><div id="usersTable" class="muted">Memuat...</div></div>
@@ -43,6 +241,8 @@
 
 <div id="modal" class="modal"><div class="modalbox"><h2>Konfigurasi Supabase</h2><p class="muted">Masukkan Project URL dan Publishable/Anon Key. Jangan masukkan service_role key ke HTML.</p><div class="form"><input id="sbUrl" placeholder="https://xxxx.supabase.co"><input id="sbKey" placeholder="sb_publishable_... / anon key"><button class="btn" id="saveConfig">Simpan & Hubungkan</button><button class="btn secondary" id="closeConfig">Tutup</button></div></div></div>
 
+<div id="historyModal" class="modal"><div class="modalbox"><h2>Riwayat Transaksi</h2><div id="historyModalBody" class="muted">Memuat...</div><div class="divider"></div><button class="btn secondary" onclick="closeHistory()">Tutup</button></div></div>
+
 <div id="financeModal" class="modal"><div class="modalbox"><div class="tabs"><button id="depositTab" class="btn" onclick="openFinance('deposit')">Deposit</button><button id="withdrawTab" class="btn secondary" onclick="openFinance('withdraw')">Penarikan</button></div>
 <div id="depositBox"><h2>Ajukan Deposit</h2><p class="muted small">Masukkan nominal dan upload bukti transfer. Status akan <b>pending</b> sampai admin menyetujui.</p><form id="depositForm" class="form"><input id="depositAmount" type="number" min="10000" placeholder="Nominal, contoh 100000" required><select id="depositMethod"><option>Transfer Bank</option><option>E-Wallet</option><option>QRIS</option></select><input id="depositSender" placeholder="Nama pengirim (opsional)"><input id="depositProof" type="file" accept="image/*" required><button class="btn">Kirim Pengajuan Deposit</button></form></div>
 <div id="withdrawBox" class="hidden"><h2>Ajukan Penarikan</h2><p class="muted small">Pengajuan akan menunggu approval admin. Saldo tidak dipotong sebelum disetujui.</p><form id="withdrawForm" class="form"><input id="withdrawAmount" type="number" min="10000" placeholder="Nominal, contoh 100000" required><select id="withdrawMethod"><option>Transfer Bank</option><option>E-Wallet</option><option>QRIS</option></select><input id="withdrawAccount" placeholder="Nomor rekening / nomor e-wallet" required><input id="withdrawOwner" placeholder="Nama pemilik rekening" required><button class="btn">Kirim Pengajuan Penarikan</button></form></div>
@@ -50,18 +250,30 @@
 
 <div id="adminProofModal" class="modal"><div class="modalbox"><h2 id="proofTitle">Bukti Transfer</h2><div id="proofBody"></div><div class="actions"><button class="btn secondary" onclick="closeAdminProof()">Tutup</button></div></div></div>
 <script>
-const CFGKEY='gtsai_supabase_config';let sb=null,user=null,profile=null,packages=[];let financeMode='deposit';let realtimeChannel=null;
+const CFGKEY='gtsai_supabase_config';
+// V5: isi dua konstanta ini satu kali agar semua perangkat otomatis memakai project Supabase yang sama.
+// Gunakan PUBLISHABLE key / anon key saja. Jangan pernah memasukkan service_role / secret key.
+const EMBEDDED_SUPABASE_URL='';
+const EMBEDDED_SUPABASE_KEY='';
+let sb=null,user=null,profile=null,packages=[];let financeMode='deposit';let realtimeChannel=null;
 const $=id=>document.getElementById(id);const money=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n)||0);
-function config(){try{return JSON.parse(localStorage.getItem(CFGKEY)||'null')}catch{return null}}
+function config(){
+  if(EMBEDDED_SUPABASE_URL && EMBEDDED_SUPABASE_KEY) return {url:EMBEDDED_SUPABASE_URL,key:EMBEDDED_SUPABASE_KEY};
+  try{return JSON.parse(localStorage.getItem(CFGKEY)||'null')}catch{return null}
+}
 function setStatus(t,err=false){const el=$('authStatus');if(!el)return;el.textContent=t;el.className='status '+(err?'err':'ok');el.style.display='block';}
-async function connect(){try{const c=config();if(!c?.url||!c?.key){setStatus('Supabase belum dikonfigurasi.',true);return false}setStatus('Menghubungkan ke Supabase...');sb=window.supabase.createClient(c.url,c.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});const {data,error}=await sb.auth.getSession();if(error){setStatus('Koneksi Supabase gagal: '+error.message,true);return false}if(data.session){user=data.session.user;await boot()}else setStatus('Supabase terhubung. Silakan masuk atau buat akun.');return true}catch(e){console.error(e);setStatus('Koneksi gagal: '+(e?.message||e),true);return false}}
+async function connect(){try{const c=config();if(!c?.url||!c?.key){setStatus('Supabase belum dikonfigurasi. Isi konfigurasi V5 terlebih dahulu.',true);return false}setStatus('Menghubungkan ke Supabase...');sb=window.supabase.createClient(c.url,c.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});const {data,error}=await sb.auth.getSession();if(error){setStatus('Koneksi Supabase gagal: '+error.message,true);return false}if(data.session){user=data.session.user;await boot()}else setStatus('Supabase terhubung. Silakan masuk atau buat akun.');return true}catch(e){console.error(e);setStatus('Koneksi gagal: '+(e?.message||e),true);return false}}
 async function boot(){if(!sb||!user)return;const {data:p,error}=await sb.from('profiles').select('*').eq('id',user.id).single();if(error){setStatus(error.message,true);return}profile=p;if(p.status==='blocked'){await sb.auth.signOut();setStatus('Akun sedang dinonaktifkan oleh admin.',true);return}$('loginView').classList.add('hidden');$('appView').classList.remove('hidden');$('nav').classList.remove('hidden');$('roleBadge').textContent=(p.role||'user').toUpperCase();$('welcome').textContent=`Halo, ${p.full_name||user.email}`;$('profileInfo').innerHTML=`<b>${esc(p.full_name||'')}</b><div class="muted">${esc(p.email||user.email)}</div><div class="muted">Kode referral: ${esc(p.referral_code||'-')}</div>`;await loadAll();subscribeRealtime()}
-async function loadAll(){await Promise.all([loadPackages(),loadDashboard(),loadBonus(),loadAdmin()])}
+async function loadAll(){await Promise.all([loadPackages(),loadDashboard(),loadBonus(),loadTransactionHistory(),loadBonusLock(),loadAdmin()])}
 async function loadPackages(){const {data,error}=await sb.from('packages').select('*').eq('active',true).order('sort_order');if(error){console.error(error);return}packages=data||[];$('packageList').innerHTML=packages.map(p=>`<div class="card package"><div class="shine"></div><h3>${esc(p.name)}</h3><div class="roi">${p.daily_rate}% / hari</div><div class="meta">Durasi: ${p.duration_days} hari<br>Target: ${p.target_roi}%<br>Minimum: ${money(p.min_amount)}</div><div class="actions"><button class="btn" onclick="buy('${p.id}')">Mulai</button></div></div>`).join('')||'<div class="card">Belum ada paket aktif.</div>';if(profile?.role==='admin')$('adminPackages').innerHTML=packages.map(p=>`<div class="card" style="margin:8px 0"><b>${esc(p.name)}</b><div class="meta">${p.daily_rate}%/hari · ${p.duration_days} hari · target ${p.target_roi}%</div><div class="actions"><button class="btn secondary" onclick="editPackage('${p.id}')">Ubah</button></div></div>`).join('')}
 async function buy(pid){const p=packages.find(x=>x.id===pid);if(!p)return;const amount=Number(prompt(`Nominal (minimum ${money(p.min_amount)}):`,p.min_amount));if(!amount||amount<p.min_amount)return alert('Nominal tidak valid.');if(Number(profile.demo_balance)<amount)return alert('Saldo tidak mencukupi.');const {error}=await sb.from('investments').insert({user_id:user.id,package_id:p.id,principal:amount,status:'active',started_at:new Date().toISOString()});if(error)alert(error.message);else{await sb.from('profiles').update({demo_balance:Number(profile.demo_balance)-amount}).eq('id',user.id);await sb.from('activity_logs').insert({user_id:user.id,message:`Investasi ${p.name} sebesar ${money(amount)} dibuat.`});alert('Investasi berhasil dibuat.');await boot()}}
 async function loadDashboard(){const [iRes,dRes,aRes,tRes]=await Promise.all([sb.from('investments').select('*,packages(name,daily_rate,duration_days,target_roi)').eq('user_id',user.id).order('created_at',{ascending:false}),sb.from('daily_records').select('*').eq('user_id',user.id).order('record_date',{ascending:false}).limit(30),sb.from('activity_logs').select('*').eq('user_id',user.id).order('created_at',{ascending:false}).limit(8),sb.from('transactions').select('*').eq('user_id',user.id).order('created_at',{ascending:false}).limit(8)]);const inv=iRes.data||[],days=dRes.data||[],acts=aRes.data||[],tx=tRes.data||[];const balance=Number(profile.demo_balance||0);const daily=inv.filter(x=>x.status==='active').reduce((s,x)=>s+Number(x.principal)*Number(x.packages?.daily_rate||0)/100,0);$('balance').textContent=money(balance);$('activeInv').textContent=inv.filter(x=>x.status==='active').length;$('dailyProfit').textContent=money(daily);const principal=inv.reduce((s,x)=>s+Number(x.principal),0);const earned=days.reduce((s,x)=>s+Number(x.profit),0);$('roi').textContent=(principal?((earned/principal)*100).toFixed(2):'0')+'%';$('investmentList').innerHTML=inv.length?inv.map(x=>`<div style="padding:9px 0;border-bottom:1px solid #29251f"><b>${esc(x.packages?.name||'Paket')}</b> · ${money(x.principal)}<div class="muted">${x.status} · ${x.packages?.daily_rate||0}%/hari</div></div>`).join(''):'Belum ada investasi.';$('transactionList').innerHTML=tx.length?tx.map(x=>`<div style="padding:9px 0;border-bottom:1px solid #29251f"><b>${x.type==='deposit'?'Deposit':'Penarikan'}</b> · ${money(x.amount)}<div><span class="pill ${x.status}">${x.status}</span></div></div>`).join(''):'Belum ada transaksi.';drawChart(days)}
 function drawChart(rows){const w=700,h=210,p=28,vals=rows.slice(0,7).reverse().map(x=>Number(x.profit)||0);while(vals.length<7)vals.unshift(0);const max=Math.max(...vals,1);const pts=vals.map((v,i)=>[p+i*((w-2*p)/6),h-p-(v/max)*(h-2*p)]);const path=pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' ');$('chart').innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><line class="gridline" x1="${p}" y1="${p}" x2="${w-p}" y2="${p}"/><line class="gridline" x1="${p}" y1="${h-p}" x2="${w-p}" y2="${h-p}"/><path class="line" d="${path}"/>${pts.map(q=>`<circle class="dot" cx="${q[0]}" cy="${q[1]}" r="4"/>`).join('')}<text x="${p}" y="${h-6}">-6</text><text x="${w-p-10}" y="${h-6}">hari</text></svg>`}
-async function loadBonus(){const {data}=await sb.from('referral_bonuses').select('*').eq('user_id',user.id);const total=(data||[]).reduce((s,x)=>s+Number(x.amount),0);$('bonusTotal').textContent=money(total);$('refCode').textContent=profile.referral_code||'-';$('refLink').value=location.origin+location.pathname+'?ref='+(profile.referral_code||'')}
+async function loadBonus(){const {data}=await sb.from('referral_bonuses').select('*').eq('user_id',user.id).order('created_at',{ascending:false});const total=(data||[]).reduce((s,x)=>s+Number(x.amount),0);$('bonusTotal').textContent=money(total);$('refCode').textContent=profile.referral_code||'-';$('refLink').value=location.origin+location.pathname+'?ref='+(profile.referral_code||'')}
+async function loadTransactionHistory(){const {data,error}=await sb.from('transactions').select('*').eq('user_id',user.id).order('created_at',{ascending:false});const txs=data||[];if(error){$('fullTransactionHistory').innerHTML='<div class="muted">Gagal memuat riwayat transaksi.</div>';return}const body=txs.length?txs.map(x=>{const label=x.type==='deposit'?'Deposit':'Penarikan';const date=new Date(x.created_at).toLocaleString('id-ID');const detail=[x.method,x.account_number||x.sender_name,x.account_owner].filter(Boolean).map(esc).join(' · ');return `<div class="gts-history-row"><div><b>${label}</b><div class="gts-history-meta">${date}${detail?' · '+detail:''}</div><div style="margin-top:5px"><span class="pill ${x.status}">${esc(x.status)}</span>${x.admin_note?` <span class="gts-history-meta">${esc(x.admin_note)}</span>`:''}</div></div><div class="gts-history-amount">${money(x.amount)}</div></div>`}).join(''):'<div class="gts-history-empty">Belum ada transaksi.</div>'; $('fullTransactionHistory').innerHTML=body}
+async function openHistory(){await loadTransactionHistory();const el=$('historyModal');if(el)el.classList.add('open');$('historyModalBody').innerHTML=$('fullTransactionHistory').innerHTML}
+function closeHistory(){$('historyModal').classList.remove('open')}
+async function loadBonusLock(){const {data,error}=await sb.from('investments').select('started_at,status,package_id,packages(name,duration_days)').eq('user_id',user.id);if(error){$('bonusLockInfo').textContent='Status bonus belum dapat diperiksa.';return}const now=Date.now();const active=(data||[]).filter(x=>x.status==='active');let unlock=0;active.forEach(x=>{const start=new Date(x.started_at).getTime();const days=Number(x.packages?.duration_days||0);unlock=Math.max(unlock,start+days*86400000)});const btn=$('bonusWithdrawBtn');if(active.length&&unlock>now){$('bonusLockInfo').innerHTML=`<b>🔒 Bonus masih terkunci</b><div class="muted small" style="margin-top:5px">Dapat ditinjau kembali setelah masa kontrak aktif berakhir: <b>${new Date(unlock).toLocaleString('id-ID')}</b>.</div>`;btn.disabled=true;btn.textContent='Bonus Terkunci';}else{$('bonusLockInfo').innerHTML='<b>✓ Masa kontrak aktif telah berakhir.</b><div class="muted small" style="margin-top:5px">Status bonus sudah tidak dikunci oleh masa kontrak.</div>';btn.disabled=true;btn.textContent='Fitur Penarikan Bonus Belum Tersedia di Demo';}}
 async function loadAdmin(){if(profile?.role!=='admin'){ $('adminPanel').classList.add('hidden'); return }$('adminPanel').classList.remove('hidden');const [u,i,td,tw]=await Promise.all([sb.from('profiles').select('id,full_name,email,role,status,demo_balance,referral_code,created_at').order('created_at',{ascending:false}),sb.from('investments').select('id',{count:'exact',head:true}),sb.from('transactions').select('id',{count:'exact',head:true}).eq('type','deposit').eq('status','pending'),sb.from('transactions').select('id',{count:'exact',head:true}).eq('type','withdrawal').eq('status','pending')]);const users=u.data||[];$('adminUsers').textContent=users.filter(x=>x.role==='user').length;$('adminInv').textContent=i.count||0;$('adminPendingDep').textContent=td.count||0;$('adminPendingWd').textContent=tw.count||0;$('usersTable').innerHTML=`<div class="tablewrap"><table class="table"><tr><th>User</th><th>Status</th><th>Saldo</th><th>Aksi</th></tr>${users.filter(x=>x.role==='user').map(x=>`<tr><td>${esc(x.full_name||x.email)}<br><span class="muted">${esc(x.email||'')}</span></td><td>${x.status}</td><td>${money(x.demo_balance)}</td><td><button class="btn secondary" onclick="toggleUser('${x.id}','${x.status}')">${x.status==='active'?'Blokir':'Aktifkan'}</button> <button class="btn secondary" onclick="creditUser('${x.id}')">+ Saldo</button></td></tr>`).join('')}</table></div>`;$('adminTransactions').innerHTML=await renderAdminTransactions()}
 async function renderAdminTransactions(){
   const {data:txs,error}=await sb.from('transactions').select('*').order('created_at',{ascending:false}).limit(100);
@@ -88,7 +300,7 @@ async function viewProof(id){const {data:tx,error}=await sb.from('transactions')
 function closeAdminProof(){$('adminProofModal').classList.remove('open')}
 function openFinance(mode){financeMode=mode;$('financeModal').classList.add('open');$('depositBox').classList.toggle('hidden',mode!=='deposit');$('withdrawBox').classList.toggle('hidden',mode!=='withdraw');$('depositTab').className=mode==='deposit'?'btn':'btn secondary';$('withdrawTab').className=mode==='withdraw'?'btn':'btn secondary'}
 function closeFinance(){$('financeModal').classList.remove('open')}
-async function subscribeRealtime(){if(realtimeChannel)sb.removeChannel(realtimeChannel);realtimeChannel=sb.channel('gtsai-live-'+user.id).on('postgres_changes',{event:'*',schema:'public',table:'profiles'},payload=>{if(payload.new?.id===user.id||payload.old?.id===user.id)boot();if(profile?.role==='admin')loadAdmin()}).on('postgres_changes',{event:'*',schema:'public',table:'investments',filter:`user_id=eq.${user.id}`},()=>loadDashboard()).on('postgres_changes',{event:'*',schema:'public',table:'transactions'},()=>{loadDashboard();if(profile?.role==='admin')loadAdmin()}).on('postgres_changes',{event:'*',schema:'public',table:'packages'},()=>loadPackages()).subscribe()}
+async function subscribeRealtime(){if(realtimeChannel)sb.removeChannel(realtimeChannel);realtimeChannel=sb.channel('gtsai-live-'+user.id).on('postgres_changes',{event:'*',schema:'public',table:'profiles'},payload=>{if(payload.new?.id===user.id||payload.old?.id===user.id)boot();if(profile?.role==='admin')loadAdmin()}).on('postgres_changes',{event:'*',schema:'public',table:'investments',filter:`user_id=eq.${user.id}`},()=>{loadDashboard();loadBonusLock()}).on('postgres_changes',{event:'*',schema:'public',table:'transactions'},()=>{loadDashboard();loadTransactionHistory();if(profile?.role==='admin')loadAdmin()}).on('postgres_changes',{event:'*',schema:'public',table:'packages'},()=>{loadPackages();loadBonusLock()}).subscribe()}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 $('loginForm').onsubmit=async e=>{e.preventDefault();try{setStatus('Memeriksa akun...');if(!sb&&!(await connect()))return;const {data,error}=await sb.auth.signInWithPassword({email:$('email').value,password:$('password').value});if(error){setStatus('Login gagal: '+error.message,true);return}user=data.user;await boot()}catch(err){console.error(err);setStatus('Login gagal: '+(err?.message||err),true)}};
 $('showSignup').onclick=()=>{$('signupForm').classList.toggle('hidden');if(!$('signupForm').classList.contains('hidden'))setStatus('Silakan isi data akun lalu klik Daftar.');};$('signupForm').onsubmit=async e=>{e.preventDefault();try{setStatus('Membuat akun...');if(!sb&&!(await connect()))return;const {data,error}=await sb.auth.signUp({email:$('signupEmail').value.trim(),password:$('signupPassword').value,options:{data:{full_name:$('signupName').value.trim(),referral_code_input:$('signupRef').value.trim()||null}}});if(error){setStatus('Pendaftaran gagal: '+error.message,true);return}if(data.session){user=data.user;setStatus('Akun berhasil dibuat. Membuka aplikasi...');await boot()}else{setStatus('Akun berhasil dibuat. Silakan cek email untuk verifikasi, lalu kembali ke sini dan login.')}}catch(err){console.error(err);setStatus('Pendaftaran gagal: '+(err?.message||err),true)}};
@@ -96,4 +308,80 @@ $('showConfig').onclick=()=>{$('modal').classList.add('open');const c=config();i
 $('depositForm').onsubmit=submitDeposit;$('withdrawForm').onsubmit=submitWithdraw;
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(b.dataset.screen).classList.add('active')});
 connect();
-</script></body></html>
+</script>
+<script id="gts-v6-candlestick-chart">
+(function(){
+  function draw(){
+    var c=document.getElementById('gtsPremiumChart'); if(!c)return;
+    var w=c.clientWidth||600,h=220,d=window.devicePixelRatio||1,ctx=c.getContext('2d');
+    c.width=w*d;c.height=h*d;ctx.setTransform(d,0,0,d,0,0);
+
+    var candles=[
+      [42,46,39,45],[45,48,43,44],[44,47,41,42],[42,45,40,44],
+      [44,50,43,48],[48,53,46,51],[51,54,48,49],[49,56,47,55],
+      [55,59,52,57],[57,60,54,53],[53,58,51,56],[56,63,54,61],
+      [61,66,58,64],[64,70,62,68]
+    ];
+    var min=36,max=72;
+    var left=34,right=12,top=12,bottom=30;
+    var pw=w-left-right, ph=h-top-bottom;
+    var y=v=>top+(max-v)/(max-min)*ph;
+    var step=pw/candles.length, body=Math.max(6,step*.52);
+
+    ctx.clearRect(0,0,w,h);
+
+    // subtle grid
+    ctx.strokeStyle='rgba(148,163,184,.10)';
+    ctx.lineWidth=1;
+    for(var i=0;i<5;i++){
+      var gy=top+i*ph/4;
+      ctx.beginPath();ctx.moveTo(left,gy);ctx.lineTo(w-right,gy);ctx.stroke();
+    }
+    for(var j=0;j<candles.length;j+=2){
+      var gx=left+(j+.5)*step;
+      ctx.beginPath();ctx.moveTo(gx,top);ctx.lineTo(gx,top+ph);ctx.stroke();
+    }
+
+    candles.forEach(function(a,i){
+      var open=a[0],high=a[1],low=a[2],close=a[3];
+      var x=left+(i+.5)*step;
+      var up=close>=open;
+      var col=up?'#22c55e':'#ef4444';
+
+      ctx.strokeStyle=col;
+      ctx.lineWidth=1.5;
+      ctx.beginPath();ctx.moveTo(x,y(high));ctx.lineTo(x,y(low));ctx.stroke();
+
+      var yo=y(open), yc=y(close), by=Math.min(yo,yc), bh=Math.max(3,Math.abs(yc-yo));
+      ctx.fillStyle=col;
+      ctx.fillRect(x-body/2,by,body,bh);
+      ctx.strokeStyle=up?'rgba(34,197,94,.95)':'rgba(239,68,68,.95)';
+      ctx.strokeRect(x-body/2,by,body,bh);
+    });
+
+    // axis labels
+    ctx.font='10px system-ui';
+    ctx.fillStyle='#7f8a9c';
+    [72,63,54,45,36].forEach(function(v){
+      ctx.fillText(String(v),5,y(v)+3);
+    });
+    ['H-13','H-10','H-7','H-4','H-1'].forEach(function(t,k){
+      var idx=[0,3,6,9,12][k];
+      ctx.fillText(t,left+(idx+.5)*step-10,h-8);
+    });
+
+    // last close marker
+    var last=candles[candles.length-1][3];
+    var ly=y(last);
+    ctx.setLineDash([4,4]);
+    ctx.strokeStyle='rgba(215,173,75,.60)';
+    ctx.beginPath();ctx.moveTo(left,ly);ctx.lineTo(w-right,ly);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#f5d77b';
+    ctx.fillText('Close '+last,left+4,ly-5);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',draw);else draw();
+  window.addEventListener('resize',draw);
+})();
+</script>
+</body></html>
